@@ -1,0 +1,31 @@
+# Home page
+GET     /:cong                  		controllers.BlockController.index(cong: String)
+
+#Cong
+POST    /cong                 			controllers.CongController.newCong()
+GET     /cong/:cong           			controllers.CongController.find(cong: String)
+
+#Blocks
+POST    /blocks                 		controllers.BlockController.newBlock()
+GET     /blocks/:cong        			controllers.BlockController.findAll(cong: String)
+GET     /blocks/:cong/:block   			controllers.BlockController.find(cong: String, block: String)
+GET     /blocks/delete/:cong/:block   	controllers.BlockController.deleteBlock(cong: String, block: String)
+
+#Print
+GET 	/print/:cong/:block				controllers.PrintController.print(cong: String, block: String)
+GET 	/print/overall/:cong/:block		controllers.PrintController.printOverall(cong: String, block: String)
+
+#Record
+POST 	/record							controllers.RecordController.newRecord()
+POST 	/record/return					controllers.RecordController.returnCard()
+GET 	/record/:cong/:block			controllers.RecordController.findRecords(cong: String, block: String)
+GET 	/record/overall/:cong/:block	controllers.RecordController.findOverallBlockRecords(cong: String, block: String)
+
+#Coverage
+GET		/coverage/chartView/:cong/:fromDate		controllers.CoverageController.viewChartViewCoverage(cong: String, fromDate: String)
+GET		/coverage/blockView/:cong/:fromDate		controllers.CoverageController.viewBlockViewCoverage(cong: String, fromDate: String)
+GET		/coverage/:cong/:fromDate			controllers.CoverageController.findCoverage(cong: String, fromDate: String)
+                                
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

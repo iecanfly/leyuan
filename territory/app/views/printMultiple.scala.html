@@ -1,0 +1,38 @@
+@(blocks: List[Block])
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Print Territory</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery-ui-1.8.18.custom.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+<script type="text/javascript"	src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+<script type="text/javascript"	src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/jquery-ui-1.8.18.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/classHelper.js")" type="text/javascript"></script>
+<!-- DO NOT CHANGE THE ORDER OF JS! map.js should be on top of other custom made js files -->
+<script src="@routes.Assets.at("javascripts/printPage.js")" type="text/javascript"></script>
+<script type="text/javascript">
+	$(window).ready(function(e) {
+
+	});
+</script>
+</head>
+<body>
+	<div style="width: 1300px;">
+
+
+		@for(block <- blocks) {
+			<iframe style="width: 600px; height: 410px; margin-right:30px; margin-bottom: 15px; border:dotted 1px"
+				src="/print/@block.cong/@block.block-@block.number"></iframe>
+			<iframe style="width: 600px; height: 410px; margin-right:30px; margin-bottom: 15px; border:dotted 1px"
+			src="/print/overall/@block.cong/@block.block-@block.number"></iframe>
+		}
+		
+	</div>
+</body>
+</html>

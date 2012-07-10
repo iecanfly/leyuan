@@ -1,0 +1,12 @@
+@(blocks: List[Block])(cong: String)
+
+@main("Ningbo Territory")(cong) {
+	@sidecontrol()
+	
+	<div id="containerWrapper">
+		<div style="border:1px solid gray" id="container">
+		</div>
+	</div>
+
+	@dialog(blocks)
+} 

@@ -1,0 +1,31 @@
+<div id="sideControl">
+	<div id="blockDiv">
+		<h3 class="sideControlHeader">Block Creation</h3>
+		<input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="Create" onclick="territoryMap.startDrawingBlocks();" />
+		<input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="Finish" onclick="territoryMap.finishDrawingBlocks();" />
+	</div>
+	
+	<div id="printDiv">
+		<h3 class="sideControlHeader">Print Territory</h3>
+		<input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="Print" onclick="territoryMap.openPrintDialogue();" />
+	</div>
+	
+	<div id="filterDiv">
+		<h3 class="sideControlHeader">View Filter</h3>
+		<select id="cboViewFilter" class="ui-combobox ui-widget ui-state-default ui-corner-all" >
+		</select>
+	</div>
+	
+	<div id="coverageDiv">
+		<h3 class="sideControlHeader">Coverage</h3>
+		<div id="coverageFromDate"></div>
+		<input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="Block View" onclick="territoryMap.openBlockViewCoverage();" />
+		<input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="Chart View" onclick="territoryMap.openChartViewCoverage();" />
+		</select>
+	</div>
+	
+</div>
+
+<div id="viewFilterOptionTmpl" style="display:none">
+<option value="{val}">{Name}</option>
+</div>

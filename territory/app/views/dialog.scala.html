@@ -1,0 +1,66 @@
+@(blocks: List[Block])
+<div style="display:none" id="save_block_dialog_form" title="Create new block">
+	<form>
+	<fieldset>
+		<label for="block">Block</label>
+		<input type="text" name="block" id="block" class="text ui-widget-content ui-corner-all" />
+		<label for="number">Number</label>
+		<input type="text" name="number" id="number" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+<div style="display:none" id="save_record_dialog_form" title="Write Record">
+	<form>
+	<fieldset>
+		<label for="workDate">Work Date</label>
+		<input type="text" name="workDate" id="workDate" class="text ui-widget-content ui-corner-all" />
+		<label for="personInitial">Initial</label>
+		<input type="text" name="initial" id="initial" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+<div style="display:none" id="return_card_dialog_form" title="Write Record">
+	<form>
+	<fieldset>
+		<label for="cardReturnDate">Card Return Date</label>
+		<input type="text" name="returnDate" id="returnDate" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+<div style="display:none" id="view_record_dialog" title="View Record">
+	<table id="record">
+	    <thead>
+	    </thead>
+	    <tbody>
+	        
+	    </tbody>
+	</table>
+</div>
+
+<div style="display:none" id="print_dialog_form" title="Print territory">
+	<form>
+	<fieldset id="printFieldSet">
+		
+	</fieldset>
+	</form>
+</div>
+
+<div style="display:none" id="printCheckTempl">
+	<span class="printlabel">{block}</span>
+	<input type="checkbox" name="{block}" id="{block}" class="printcheck" />
+</div>
+
+<div style="display:none" id="printHeaderTempl">
+	<br><h2 class="printBlockHeader">{blockName}</h2>
+</div>
+
+<div style="display:none" id="printAllTempl">
+	<div class="printBlockDiv">
+	<h2>Print All</h2>
+	<span class="printlabel" >All</span>
+	<input type="checkbox" name="printAll" id="printAll" class="printcheck" />
+	</div>
+</div>

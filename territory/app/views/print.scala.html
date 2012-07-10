@@ -1,0 +1,43 @@
+@(block : Block)
+
+<!DOCTYPE html>
+
+<html style="overflow: hidden">
+    <head>
+        <title>@block.block-@block.number</title>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery-ui-1.8.18.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/classHelper.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/latlon.js")" type="text/javascript"></script>
+        <!-- DO NOT CHANGE THE ORDER OF JS! map.js should be on top of other custom made js files -->
+        <script src="@routes.Assets.at("javascripts/printMap.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/printPage.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/dao/blockDAO.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+        	var blockInfo = {};
+        	blockInfo["blockName"] = "@block.block";
+        	blockInfo["blockNumber"] = "@block.number";
+        	blockInfo["coord"] = "@block.coord";
+        	blockInfo["markerCoord"] = "@block.markerCoord";
+        	blockInfo["printCoord"] = "@block.printCoord";
+        	blockInfo["printZoomLevel"] = "@block.printZoomLevel";
+        	
+        	var printMap;
+        	
+        	$(document).ready(function(){
+        		printMap = new Territory.PrintMap(blockInfo);
+        	});
+        	
+        </script>
+    </head>
+    <body id="printBody">
+        <div style="width: 600px; height: 410px; border:none;" id="printContainer"></div>
+        <h4 style="height:45px;width:120px;text-align:center; border:2px solid; background-color:white; position:absolute;top: -25px;left: 10px;font-size: 200%">@block.block-@block.number</h4>
+        <div id="busInfoDiv" style="width: 95px; border:1px solid;background-color:white; position:absolute;top:5px;left: 495px;font-size: 70%;font-family: Microsoft YaHei;padding:3px 3px 3px 3px;"></div>
+    </body>
+</html>
+
