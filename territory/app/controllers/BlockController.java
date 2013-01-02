@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import models.Block;
@@ -10,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 
+import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
@@ -49,18 +51,22 @@ public class BlockController extends BaseController {
 			List<Block> blockList = Block.find(cong);
 			ObjectMapper mapper = new ObjectMapper();
 			ArrayNode data = mapper.createArrayNode();
-
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			
 			for (Block block : blockList) {
 				ObjectNode blockNode = Json.newObject();
 				blockNode.put("cong", block.cong);
 				blockNode.put("block", block.block);
 				blockNode.put("number", block.number);
+				blockNode.put("lastWorkedDate", block.lastWorkedDate == null ? "" : format.format(block.lastWorkedDate));
 				blockNode.put("coord", block.coord);
 				data.add(blockNode);
 			}
 
 			return ok("OK", data);
 		} catch (Exception e) {
+			Logger.error(e.getMessage());
+			e.printStackTrace();
 			return badRequest("KO", e.getMessage());
 		}
 	}
@@ -70,18 +76,22 @@ public class BlockController extends BaseController {
 			List<Block> blockList = Block.find(cong, block);
 			ObjectMapper mapper = new ObjectMapper();
 			ArrayNode data = mapper.createArrayNode();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 			for (Block b : blockList) {
 				ObjectNode blockNode = Json.newObject();
 				blockNode.put("cong", b.cong);
 				blockNode.put("block", b.block);
 				blockNode.put("number", b.number);
+				blockNode.put("lastWorkedDate", b.lastWorkedDate == null ? "" : format.format(b.lastWorkedDate));
 				blockNode.put("coord", b.coord);
 				data.add(blockNode);
 			}
 
 			return ok("OK", data);
 		} catch (Exception e) {
+			Logger.error(e.getMessage());
+			
 			return badRequest("KO", e.getMessage());
 		}
 	}

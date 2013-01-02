@@ -79,7 +79,7 @@ Territory.PrintMap = Class.extend({
 	},
 	
 	_getCleanedBusNumberInfo : function(busInfo) {
-		return busInfo.replace(/[0-9]*支;/gi, "").replace(/[0-9]*区间;/gi, "").replace(/[0-9]*通宵;/gi, "").replace(/[0-9]*夜;/gi, "").replace(/日/gi, "").replace(/路/gi, "").replace(/;/gi, ",");
+		return busInfo.replace(/[0-9]*空调;/gi, "").replace(/[0-9]*支;/gi, "").replace(/[0-9]*区间;/gi, "").replace(/[0-9]*通宵;/gi, "").replace(/[0-9]*夜;/gi, "").replace(/日/gi, "").replace(/路/gi, "").replace(/;/gi, ",");
 	},
 	
 	_addBusStationInfo : function(stationInfoHtml) {

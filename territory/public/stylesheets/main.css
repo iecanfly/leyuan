@@ -17,6 +17,7 @@ div#users-contain table td, div#users-contain table th { border: 1px solid #eee;
 #firstContainer { height:100%; }
 #sideControl { width:200; float:right; margin: 0px 10px 0px 8px; }
 .printcheck { display:inline; margin: 5px 10px 0px 0px; padding: 0px 0px 0px 0px; }
+.printcheckForOptionRecord { display:inline; margin: 5px 10px 0px 0px; padding: 0px 0px 0px 0px; }
 .printlabel { display:inline; margin: 0px 0px 0px 0px; }
 .printBlockHeader { clear:both; margin: 0px 0px 0px 0px;}
 .printBlockUnit {display:inline; float: left}

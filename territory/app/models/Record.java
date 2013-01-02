@@ -26,6 +26,7 @@ public class Record extends Model {
 	@Required
 	public String initial;
 	public Date returnDate;
+	
 
 	public static Finder<Long, Record> find = new Finder<Long, Record>(Long.class, Record.class);
 

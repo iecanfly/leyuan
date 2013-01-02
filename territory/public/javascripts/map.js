@@ -110,7 +110,7 @@ Territory.Map = Class.extend({
 			for (var i = 0; i < _blocks.length; i++) {
 				var block = _blocks[i];
 				if(block.block === blockName) {
-					_this.drawBlock(block.block, block.number, block.coord);
+					_this.drawBlock(block.block, block.number, block.coord, block.lastWorkedDate);
 					appendedCoord = appendedCoord + block.coord;
 				}
 			}
@@ -126,14 +126,14 @@ Territory.Map = Class.extend({
 		
 		for ( var i = 0; i < _blocks.length; i++) {
 			var block = _blocks[i];
-			_this.drawBlock(block.block, block.number, block.coord);
+			_this.drawBlock(block.block, block.number, block.coord, block.lastWorkedDate);
 		}
 		
 		// After drawing new blocks, update the view filter
 		_this._initViewFilterCombo(_blocks);
 	},
 
-	drawBlock : function(block, number, pts) {
+	drawBlock : function(block, number, pts, lastWorkedDate) {
 		var pointStrArray = pts.split(";");
 		var pointArray = [];
 
@@ -143,7 +143,7 @@ Territory.Map = Class.extend({
 		}
 
 		_this._drawPolygon(pointArray);
-		_this._drawBlockMarker(block, number, pts);
+		_this._drawBlockMarker(block, number, pts, lastWorkedDate);
 
 	},
 
@@ -206,7 +206,7 @@ Territory.Map = Class.extend({
 		_recordDAO.returnCard(record);
 	},
 
-	_drawBlockMarker : function(block, number, pts) {
+	_drawBlockMarker : function(block, number, pts, lastWorkedDate) {
 		var markerPosition = _this._findMarkerPosition(pts);
 		var icon = new BMap.Icon("/assets/images/red_marker.png", new BMap.Size(14,23))
 		var mkr = new BMap.Marker(new BMap.Point(markerPosition[0],	markerPosition[1]));
@@ -219,7 +219,7 @@ Territory.Map = Class.extend({
 		var lbl = new BMap.Label(block + "-" + number, { offset : new BMap.Size(20, 1) });
 		lbl.setStyle({ border : "solid 1px gray" });
 		mkr.setLabel(lbl);
-		mkr.setTitle("Block : " + block + "- " + number);
+		mkr.setTitle("Block : " + block + "- " + number + "\n" + "Last worked : " + lastWorkedDate);
 		_map.addOverlay(mkr);
 	},
 

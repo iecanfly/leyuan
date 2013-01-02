@@ -183,12 +183,13 @@ Territory.Dialogue = Class.extend({
 	},
 	
 	openPrintDialogue : function(_blocks) {
-		var printAllTempl = $("#printAllTempl").html();
+		var printOptionTempl = $("#printOptionTempl").html();
 		var headerTempl = $("#printHeaderTempl").html();
 		var checkboxTempl = $("#printCheckTempl").html();
 		
 		$("#printFieldSet").html("");
-		$("#printFieldSet").append(printAllTempl);
+		$("#printFieldSet").append(printOptionTempl);
+		
 		var uniqueBlockNames = this._getUniqueBlockNames(_blocks);
 		var printHtml = "";
 		

@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 
+import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
@@ -24,6 +25,7 @@ public class RecordController extends BaseController {
 			Record.create(record);
 			return ok("OK", "Record saved successfully.");
 		} catch (Exception e) {
+			Logger.error(e.getMessage());
 			return badRequest("ERROR", "Could not save record : " + record);
 		}
 	}
