@@ -4,6 +4,8 @@ Territory.Dialogue = Class.extend({
 	_currentBlock : null,
 	_cong : null,
 	_recordTable : null,
+	_printOptionForRecord : false,
+	_printOptionForOverall : false,
 	_members : [
 	            "XW", "JY", "ZQM", "SH", "WLC", "WL", "YAJ"
 	            ],
@@ -91,7 +93,7 @@ Territory.Dialogue = Class.extend({
 		$("#workDate").datepicker( "option", "dateFormat", "yy-mm-dd" );
 		$("#returnDate").datepicker( "option", "showAnim", "drop");
 		$("#returnDate").datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#initial" ).autocomplete({ source : this._members});
+		$("#initial").autocomplete({ source : this._members});
 	},
 	
 	_prepareViewRecordDialogue : function() {
@@ -111,6 +113,8 @@ Territory.Dialogue = Class.extend({
 	},
 	
 	_preparePrintDialogue : function() {
+		var _this = this;
+		
 		$("#print_dialog_form").dialog({
 			autoOpen: false,
 			height: 400,
@@ -125,7 +129,15 @@ Territory.Dialogue = Class.extend({
 						}
 					});
 					
-					window.open("/print/" + _cong + "/" + blocks.join(",") + ",");
+					if(_this._printOptionForRecord) {
+						window.open("/print/recordsheet/" + _cong + "/" + blocks.join(",") + ",");
+					} else if(_this._printOptionForOverall) {
+						window.open("/print/overall/" + _cong + "/" + blocks.join(",") + ",");
+					} else {
+						window.open("/print/" + _cong + "/" + blocks.join(",") + ",");
+					}
+					
+					
 					$(this).dialog("close");
 				},
 				Cancel: function() {
@@ -141,6 +153,24 @@ Territory.Dialogue = Class.extend({
 				$(".printcheck").attr("checked", false);
 			}   	
 	    });
+		
+		$(document).on("click", "#printOptionForRecord", function () {
+			_this._printOptionForRecord = $(this).is(":checked");
+			
+			if($(this).is(":checked")) {
+				$("form #printOptionForOverall").attr("checked", false);
+				_this._printOptionForOverall = false;
+			} 
+		});
+		
+		$(document).on("click", "#printOptionForOverall", function () {
+			_this._printOptionForOverall = $(this).is(":checked"); 	
+			
+			if($(this).is(":checked")) {
+				$("form #printOptionForRecord").attr("checked", false);
+				_this._printOptionForRecord = false;
+			} 
+		});
 	},
 	
 	openSaveBlockDialogue : function(pts) {

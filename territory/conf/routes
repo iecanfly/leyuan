@@ -13,6 +13,7 @@ GET     /blocks/delete/:cong/:block   	controllers.BlockController.deleteBlock(c
 
 #Print
 GET 	/print/:cong/:block				controllers.PrintController.print(cong: String, block: String)
+GET 	/print/recordsheet/:cong/:block	controllers.PrintController.printRecordSheet(cong: String, block: String)
 GET 	/print/overall/:cong/:block		controllers.PrintController.printOverall(cong: String, block: String)
 
 #Record
