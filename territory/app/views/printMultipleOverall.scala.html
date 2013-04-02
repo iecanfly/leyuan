@@ -18,9 +18,9 @@
 <script src="@routes.Assets.at("javascripts/printPage.js")" type="text/javascript"></script>
 </head>
 <body>
-	<div style="width: 1300px;">
+	<div style="width: 1650px;">
 		@for(block <- blocks) {
-			<iframe style="width: 600px; height: 410px; margin-right:30px; margin-bottom: 15px; border:dotted 1px"
+			<iframe style="width: 800px; height: 550px;  margin-right:20px; margin-bottom: 10px; border:dotted 1px"
 				src="/print/overall/@block.cong/@block.block-@block.number"></iframe>
 		}
 	</div>
