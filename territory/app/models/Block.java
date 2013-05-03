@@ -114,6 +114,11 @@ public class Block extends Model {
 
 		return blockList;
 	}
+	
+	public boolean isEqualCongBlockAndNumber(Block block) {
+		return this.cong.equals(block.cong) && this.block.equals(block.block) && this.number.equals(block.number);
+	}
+	
 
 	@Override
 	public String toString() {

@@ -49,17 +49,18 @@ public class BlockController extends BaseController {
 	public static Result updateBlock() {
 		Form<Block> filledForm = blockForm.bindFromRequest();
 		Block blockToSave = filledForm.get();
-		
+		Block existingBlock = Block.find(blockToSave.cong, blockToSave.block, blockToSave.number.toString());
 		try {
-			if (Block.find(blockToSave.cong, blockToSave.block, blockToSave.number.toString()) != null) {
-				return ok("ALREADY_EXISTS", "The same block already exists : " + blockToSave);
-			} else {
+			// If the user is updating fields except cong, block and number, allow update
+			if(blockToSave.isEqualCongBlockAndNumber(existingBlock)) {
 				Block.update(blockToSave);
+			} else { // If the user is updating cong, block or number, and they clash, do not allow update
+				return ok("ALREADY_EXISTS", "The same block already exists : " + blockToSave);
 			}
 			
 			return ok("OK", "Block saved successfully.");
 		} catch (Exception e) {
-			return badRequest("ERROR", "Could not save block : " + filledForm);
+			return badRequest("ERROR", "Could not update block : " + filledForm);
 		}
 		
 	}
