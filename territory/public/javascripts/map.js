@@ -114,7 +114,7 @@ Territory.Map = Class.extend({
 			for (var i = 0; i < _blocks.length; i++) {
 				var block = _blocks[i];
 				if(block.block === blockName) {
-					_this.drawBlock(block.block, block.number, block.coord, block.lastWorkedDate);
+					_this.drawBlock(block);
 					appendedCoord = appendedCoord + block.coord;
 				}
 			}
