@@ -71,12 +71,16 @@ public class Block extends Model {
 	public static void delete(String cong, String blockName, String blockNumber) {
 		find.where().ieq("cong", cong).ieq("block", blockName).ieq("number", blockNumber).findUnique().delete();
 	}
+	
+	public static Block findById(Long id) {
+		return find.byId(id);
+	}
 
 	public static Block find(String cong, String blockName, String blockNumber) {
 		Block block = find.where().ieq("cong", cong).ieq("block", blockName).ieq("number", blockNumber).findUnique();
 
 		List<Record> recordList = Record.findAll(cong, blockName, blockNumber);
-		if (!CollectionUtils.isEmpty(recordList)) {
+		if (block != null && !CollectionUtils.isEmpty(recordList)) {
 			block.lastWorkedDate = recordList.get(0).workDate;
 		}
 

@@ -31,10 +31,9 @@ Territory.DAO.Block = Class.extend({
 			}).done(function(msg) {
 				if(msg.status === "OK") {
 					me.getAllBlocks(cong);
-				} else {
-					alert(msg.message);
-				}
-				
+				} 
+					
+				alert(msg.message);
 			});
 		
 	},
