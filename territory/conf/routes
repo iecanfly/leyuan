@@ -7,6 +7,7 @@ GET     /cong/:cong           			controllers.CongController.find(cong: String)
 
 #Blocks
 POST    /blocks                 		controllers.BlockController.newBlock()
+POST    /block/update             		controllers.BlockController.updateBlock()
 GET     /blocks/:cong        			controllers.BlockController.findAll(cong: String)
 GET     /blocks/:cong/:block   			controllers.BlockController.find(cong: String, block: String)
 GET     /blocks/delete/:cong/:block   	controllers.BlockController.deleteBlock(cong: String, block: String)

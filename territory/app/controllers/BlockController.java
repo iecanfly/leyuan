@@ -36,7 +36,7 @@ public class BlockController extends BaseController {
 			if (Block.find(blockToSave.cong, blockToSave.block, blockToSave.number.toString()) != null) {
 				return ok("ALREADY_EXISTS", "The same block already exists : " + blockToSave);
 			} else {
-				Block.create(filledForm.get());
+				Block.create(blockToSave);
 			}
 
 			return ok("OK", "Block saved successfully.");
@@ -44,6 +44,24 @@ public class BlockController extends BaseController {
 			return badRequest("ERROR", "Could not save block : " + filledForm);
 		}
 
+	}
+	
+	public static Result updateBlock() {
+		Form<Block> filledForm = blockForm.bindFromRequest();
+		Block blockToSave = filledForm.get();
+		
+		try {
+			if (Block.find(blockToSave.cong, blockToSave.block, blockToSave.number.toString()) != null) {
+				return ok("ALREADY_EXISTS", "The same block already exists : " + blockToSave);
+			} else {
+				Block.update(blockToSave);
+			}
+			
+			return ok("OK", "Block saved successfully.");
+		} catch (Exception e) {
+			return badRequest("ERROR", "Could not save block : " + filledForm);
+		}
+		
 	}
 
 	public static Result findAll(String cong) {
@@ -55,9 +73,11 @@ public class BlockController extends BaseController {
 			
 			for (Block block : blockList) {
 				ObjectNode blockNode = Json.newObject();
+				blockNode.put("id", block.id);
 				blockNode.put("cong", block.cong);
 				blockNode.put("block", block.block);
 				blockNode.put("number", block.number);
+				blockNode.put("recommendedWorkerNum", block.recommendedWorkerNum);
 				blockNode.put("lastWorkedDate", block.lastWorkedDate == null ? "" : format.format(block.lastWorkedDate));
 				blockNode.put("coord", block.coord);
 				data.add(blockNode);
@@ -80,9 +100,11 @@ public class BlockController extends BaseController {
 
 			for (Block b : blockList) {
 				ObjectNode blockNode = Json.newObject();
+				blockNode.put("id", b.id);
 				blockNode.put("cong", b.cong);
 				blockNode.put("block", b.block);
 				blockNode.put("number", b.number);
+				blockNode.put("recommendedWorkerNum", b.recommendedWorkerNum);
 				blockNode.put("lastWorkedDate", b.lastWorkedDate == null ? "" : format.format(b.lastWorkedDate));
 				blockNode.put("coord", b.coord);
 				data.add(blockNode);

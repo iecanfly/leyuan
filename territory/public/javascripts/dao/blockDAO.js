@@ -5,12 +5,29 @@ Territory.DAO.Block = Class.extend({
 		this._territoryMap = map;
 	},
 	
-	saveBlock : function(cong, block, number, coord) {
+	saveBlock : function(cong, block, number, recommendedWorkerNum, coord) {
 		var me = this;
 		$.ajax({
 			  type: "POST",
 			  url: "/blocks",
-			  data: {cong: cong , block: block, number: number, coord: coord }
+			  data: {cong: cong , block: block, number: number, recommendedWorkerNum: recommendedWorkerNum, coord: coord }
+			}).done(function(msg) {
+				if(msg.status === "OK") {
+					me.getAllBlocks(cong);
+				} else {
+					alert(msg.message);
+				}
+				
+			});
+		
+	},
+	
+	updateBlock : function(block) {
+		var me = this;
+		$.ajax({
+			  type: "POST",
+			  url: "/block/update",
+			  data: {id: block.id, cong: cong, block: block.block, number: block.number, recommendedWorkerNum: block.recommendedWorkerNum, coord: block.coord }
 			}).done(function(msg) {
 				if(msg.status === "OK") {
 					me.getAllBlocks(cong);

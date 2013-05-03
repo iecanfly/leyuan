@@ -2,10 +2,25 @@
 <div style="display:none" id="save_block_dialog_form" title="Create new block">
 	<form>
 	<fieldset>
-		<label for="block">Block</label>
-		<input type="text" name="block" id="block" class="text ui-widget-content ui-corner-all" />
-		<label for="number">Number</label>
-		<input type="text" name="number" id="number" class="text ui-widget-content ui-corner-all" />
+		<label for="blockForSave">Block</label>
+		<input type="text" name="block" id="blockForSave" class="text ui-widget-content ui-corner-all" />
+		<label for="numberForSave">Number</label>
+		<input type="text" name="number" id="numberForSave" class="text ui-widget-content ui-corner-all" />
+		<label for="recommendedWorkerNumForSave">Recommended Worker #</label>
+		<input type="text" value="4" name="recommendedWorkerNumForSave" id="recommendedWorkerNum" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+<div style="display:none" id="edit_block_dialog_form" title="Update block">
+	<form>
+	<fieldset>
+		<label for="blockForEdit">Block</label>
+		<input type="text" name="block" id="blockForEdit" class="text ui-widget-content ui-corner-all" />
+		<label for="numberForEdit">Number</label>
+		<input type="text" name="number" id="numberForEdit" class="text ui-widget-content ui-corner-all" />
+		<label for="recommendedWorkerNumForEdit">Recommended Worker #</label>
+		<input type="text" name="recommendedWorkerNumForEdit" id="recommendedWorkerNumForEdit" class="text ui-widget-content ui-corner-all" />
 	</fieldset>
 	</form>
 </div>

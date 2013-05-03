@@ -15,6 +15,7 @@ Territory.Dialogue = Class.extend({
 		_territoryMap = map;
 		_cong = cong;
 		this._prepareSaveBlockDialogue();
+		this._prepareEditBlockDialogue();
 		this._prepareWriteRecordDialogue();
 		this._prepareViewRecordDialogue();
 		
@@ -23,16 +24,38 @@ Territory.Dialogue = Class.extend({
 	_prepareSaveBlockDialogue : function() {
 		$("#save_block_dialog_form").dialog({
 			autoOpen: false,
-			height: 230,
+			height: 300,
 			width: 250,
 			modal: true,
 			buttons: {
 				"Create a block": function() {
-					var block = $("#block").val();
-					var number = $("#number").val();
-					_territoryMap.saveBlock(block, number, _pts);
+					var block = $("#blockForSave").val();
+					var number = $("#numberForSave").val();
+					var recommendedWorkerNum = $("#recommendedWorkerNumForSave").val();
+					_territoryMap.saveBlock(block, number, recommendedWorkerNum, _pts);
 					$(this).dialog("close");
 					
+				},
+				Cancel: function() {
+					$(this).dialog("close");
+				}
+			}
+		});
+	},
+	
+	_prepareEditBlockDialogue : function() {
+		$("#edit_block_dialog_form").dialog({
+			autoOpen: false,
+			height: 300,
+			width: 250,
+			modal: true,
+			buttons: {
+				"Update": function() {
+					_currentBlock.block = $("#blockForEdit").val();
+					_currentBlock.number = $("#numberForEdit").val();
+					_currentBlock.recommendedWorkerNum = $("#recommendedWorkerNumForEdit").val();
+					_territoryMap.updateBlock(_currentBlock);
+					$(this).dialog("close");
 				},
 				Cancel: function() {
 					$(this).dialog("close");
@@ -51,8 +74,8 @@ Territory.Dialogue = Class.extend({
 				"Save": function() {
 					var record = [];
 					record["cong"] = _cong;
-					record["block"] = _currentBlock.split("-")[0];
-					record["number"] = _currentBlock.split("-")[1];
+					record["block"] = _currentBlock.block;
+					record["number"] = _currentBlock.number;
 					record["workDate"] = $("#workDate").val();
 					record["initial"] = $("#initial").val();
 					_territoryMap.saveWorkRecord(record);
@@ -73,8 +96,8 @@ Territory.Dialogue = Class.extend({
 				"Save": function() {
 					var record = [];
 					record["cong"] = _cong;
-					record["block"] = _currentBlock.split("-")[0];
-					record["number"] = _currentBlock.split("-")[1];
+					record["block"] = _currentBlock.block;
+					record["number"] = _currentBlock.number;
 					record["workDate"] = "2012-12-12"; //dummy data
 					record["initial"] = "dummy"; //dummy data
 					record["returnDate"] = $("#returnDate").val();
@@ -176,6 +199,15 @@ Territory.Dialogue = Class.extend({
 	openSaveBlockDialogue : function(pts) {
 		$("#save_block_dialog_form").dialog("open");
 		_pts = pts;
+	},
+	
+	openEditBlockDialogue : function(block) {
+		_currentBlock = block;
+		console.log(block);
+		$("#blockForEdit").val(_currentBlock.block);
+		$("#numberForEdit").val(_currentBlock.number);
+		$("#recommendedWorkerNumForEdit").val(_currentBlock.recommendedWorkerNum);
+		$("#edit_block_dialog_form").dialog("open");
 	},
 	
 	openSaveRecordDialogue : function(block) {

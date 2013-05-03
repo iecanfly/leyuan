@@ -32,7 +32,9 @@ public class Block extends Model {
 	public String markerCoord;
 	public String printCoord;
 	public String printZoomLevel;
-
+	public Integer recommendedWorkerNum = 4; //Default card is for 4 people
+	
+	
 	@Transient
 	public Date lastWorkedDate;
 
@@ -56,6 +58,10 @@ public class Block extends Model {
 
 	public static void create(Block point) {
 		point.save();
+	}
+	
+	public static void update(Block point) {
+		point.update();
 	}
 
 	public static void delete(Long id) {

@@ -11,7 +11,7 @@ Territory.Map = Class.extend({
 	_dialogue : null,
 	_cong : null,
 	_blocks : null,
-	_currentBlock : null,
+	_currentBlock : [],
 
 	init : function() {
 		_this = this;
@@ -51,7 +51,7 @@ Territory.Map = Class.extend({
 	},
 	
 
-	saveBlock : function(block, number, pts) {
+	saveBlock : function(block, number, recommendedWorkerNum, pts) {
 		var coord = "";
 		for ( var i = 0; i < pts.length; i++) {
 			coord = coord.concat(pts[i]["lat"]  + "," + pts[i]["lng"] );
@@ -59,7 +59,11 @@ Territory.Map = Class.extend({
 				coord = coord.concat(";");
 			}
 		}
-		_blockDAO.saveBlock(_cong, block,number, coord);
+		_blockDAO.saveBlock(_cong, block, number, recommendedWorkerNum, coord);
+	},
+	
+	updateBlock : function(block) {
+		_blockDAO.updateBlock(block);
 	},
 
 	_openSaveBlockDialogue : function(pts) {
@@ -126,15 +130,15 @@ Territory.Map = Class.extend({
 		
 		for ( var i = 0; i < _blocks.length; i++) {
 			var block = _blocks[i];
-			_this.drawBlock(block.block, block.number, block.coord, block.lastWorkedDate);
+			_this.drawBlock(block);
 		}
 		
 		// After drawing new blocks, update the view filter
 		_this._initViewFilterCombo(_blocks);
 	},
 
-	drawBlock : function(block, number, pts, lastWorkedDate) {
-		var pointStrArray = pts.split(";");
+	drawBlock : function(block) {
+		var pointStrArray = block.coord.split(";");
 		var pointArray = [];
 
 		for ( var i = 0; i < pointStrArray.length; i++) {
@@ -143,7 +147,7 @@ Territory.Map = Class.extend({
 		}
 
 		_this._drawPolygon(pointArray);
-		_this._drawBlockMarker(block, number, pts, lastWorkedDate);
+		_this._drawBlockMarker(block);
 
 	},
 
@@ -159,6 +163,13 @@ Territory.Map = Class.extend({
 	_getMarkerContextMenu : function() {
 		var contextMenu = new BMap.ContextMenu();
 		var txtMenuItem = [];
+		txtMenuItem["editBlock"] = {
+			text : 'Edit Block',
+			callback : function() {
+				_dialogue.openEditBlockDialogue(_currentBlock);
+			}
+		};
+	
 		txtMenuItem["writeRecord"] = { 
 			text : 'Write Record',
 			callback : function() {
@@ -189,6 +200,7 @@ Territory.Map = Class.extend({
 			}
 		};
 
+		contextMenu.addItem(new BMap.MenuItem(txtMenuItem["editBlock"].text, txtMenuItem["editBlock"].callback, 100));
 		contextMenu.addItem(new BMap.MenuItem(txtMenuItem["writeRecord"].text, txtMenuItem["writeRecord"].callback, 100));
 		contextMenu.addItem(new BMap.MenuItem(txtMenuItem["returnCard"].text, txtMenuItem["returnCard"].callback, 100));
 		contextMenu.addItem(new BMap.MenuItem(txtMenuItem["viewRecord"].text, txtMenuItem["viewRecord"].callback, 100));
@@ -206,20 +218,21 @@ Territory.Map = Class.extend({
 		_recordDAO.returnCard(record);
 	},
 
-	_drawBlockMarker : function(block, number, pts, lastWorkedDate) {
-		var markerPosition = _this._findMarkerPosition(pts);
+	_drawBlockMarker : function(block) {
+		var markerPosition = _this._findMarkerPosition(block.coord);
 		var icon = new BMap.Icon("/assets/images/red_marker.png", new BMap.Size(14,23))
 		var mkr = new BMap.Marker(new BMap.Point(markerPosition[0],	markerPosition[1]));
+		mkr.block = block; 
 		mkr.addContextMenu(_this._getMarkerContextMenu());
 		mkr.addEventListener("rightclick", function() {
-			_currentBlock = this._config.label.content;
+			_currentBlock = this.block;
 		})
 		mkr.setIcon(icon);
 
-		var lbl = new BMap.Label(block + "-" + number, { offset : new BMap.Size(20, 1) });
+		var lbl = new BMap.Label(block.block + "-" + block.number, { offset : new BMap.Size(20, 1) });
 		lbl.setStyle({ border : "solid 1px gray" });
 		mkr.setLabel(lbl);
-		mkr.setTitle("Block : " + block + "- " + number + "\n" + "Last worked : " + lastWorkedDate);
+		mkr.setTitle("Block : " + block.block + "- " + block.number + "\n" + "Last worked : " + block.lastWorkedDate);
 		_map.addOverlay(mkr);
 	},
 
