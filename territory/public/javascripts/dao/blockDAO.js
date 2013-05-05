@@ -57,7 +57,7 @@ Territory.DAO.Block = Class.extend({
 	deleteBlock : function(cong, block) {
 		var me = this;
 		$.ajax({
-			  url: "/blocks/delete/" + cong + "/" + block
+			  url: "/blocks/delete/" + cong + "/" + block.block + "_" + block.number
 			}).done(function(msg) {
 				me.getAllBlocks(cong);
 			});
