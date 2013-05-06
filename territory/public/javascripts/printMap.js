@@ -76,6 +76,10 @@ Territory.PrintMap = Class.extend({
 		_localSearch.searchNearby("公交车站", _centerPoint, 800);
 		_this.drawBlock(blockInfo["blockName"], blockInfo["blockNumber"], blockInfo["coord"]);
 		_this._drawBlockMarker(blockInfo["blockName"], blockInfo["blockNumber"], blockInfo["coord"]);
+		// Scale control takes time to initialize. Without this line, it won't be printed out.
+		setTimeout(function(){
+			$(".BMap_scaleCtrl").css("display", "inline");
+		}, 1000);
 	},
 	
 	_getCleanedBusNumberInfo : function(busInfo) {
