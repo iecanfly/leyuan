@@ -79,6 +79,7 @@ Territory.PrintMap = Class.extend({
 		// Scale control takes time to initialize. Without this line, it won't be printed out.
 		setTimeout(function(){
 			$(".BMap_scaleCtrl").css("display", "inline");
+			$("html body#printBody div#printContainer div.anchorBL a img").css("display", "none");
 		}, 1000);
 	},
 	
