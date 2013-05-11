@@ -80,7 +80,7 @@ Territory.PrintMap = Class.extend({
 		setTimeout(function(){
 			$(".BMap_scaleCtrl").css("display", "inline");
 			$("html body#printBody div#printContainer div.anchorBL a img").css("display", "none");
-		}, 1000);
+		}, 2000);
 	},
 	
 	_getCleanedBusNumberInfo : function(busInfo) {
