@@ -69,7 +69,11 @@ Territory.PrintMap = Class.extend({
 				}
 				
 				_this._addBusStationInfo(stationInfoHtml);
-				
+			      	// Scale control takes time to initialize. Without this line, it won't be printed out.
+				setTimeout(function(){
+        				$(".BMap_scaleCtrl").css("display", "inline");
+        			        $("html body#printBody div#printContainer div.anchorBL a img").css("display", "none");
+        			}, 2000);
 			}
 		});
 		
@@ -77,10 +81,6 @@ Territory.PrintMap = Class.extend({
 		_this.drawBlock(blockInfo["blockName"], blockInfo["blockNumber"], blockInfo["coord"]);
 		_this._drawBlockMarker(blockInfo["blockName"], blockInfo["blockNumber"], blockInfo["coord"]);
 		// Scale control takes time to initialize. Without this line, it won't be printed out.
-		setTimeout(function(){
-			$(".BMap_scaleCtrl").css("display", "inline");
-			$("html body#printBody div#printContainer div.anchorBL a img").css("display", "none");
-		}, 2000);
 	},
 	
 	_getCleanedBusNumberInfo : function(busInfo) {
